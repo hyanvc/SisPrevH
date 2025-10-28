@@ -1,0 +1,58 @@
+﻿@model SisPrevH.Models.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<link rel="stylesheet" href="~/css/login.css" />
+<script src="~/js/login.js"></script>
+
+<div class="login-container facil" id="loginContainer">
+    <!-- Botões no canto superior direito -->
+   @*  <div style="position: absolute; top: 10px; right: 10px; display: flex; gap: 5px; z-index:10;">
+        <button type="button" id="btnAlternar" class="btn btn-toggle">Tornar Difícil</button>
+        <button type="button" id="btnAumentarFonte" class="btn btn-toggle">A+</button>
+        <button type="button" id="btnDiminuirFonte" class="btn btn-toggle">A-</button>
+    </div> *@
+
+    <h2 class="titulo">Sistema de Previdência</h2>
+
+    <form method="post" class="login-form" aria-label="Formulário de Login">
+        <div class="form-group">
+            <label for="Usuario">Usuário</label>
+            <input asp-for="Usuario" class="form-control" id="campoUsuario" placeholder="Digite seu usuário" aria-required="true" />
+        </div>
+
+        <div class="form-group">
+            <label for="Senha">Senha</label>
+            <input asp-for="Senha" type="password" class="form-control" id="campoSenha" placeholder="Digite sua senha" aria-required="true" />
+        </div>
+
+        <!-- Código de Segurança apenas no modo difícil -->
+        <div class="form-group dificil-only">
+            <label for="CodigoSeguranca">Código de Segurança</label>
+            <input asp-for="CodigoSeguranca" class="form-control" id="campoCodigo" />
+        </div>
+
+        <!-- Botão de ajuda - só no modo fácil -->
+        <button type="button" id="btnAjuda" class="btn btn-ajuda facil-only">❓ Dúvidas? Clique Aqui</button>
+
+        <!-- Botão de login -->
+        <button type="submit" class="btn btn-login">Entrar</button>
+    </form>
+
+    @if (ViewBag.Mensagem != null)
+    {
+        <p class="mensagem">@ViewBag.Mensagem</p>
+    }
+</div>
+
+<!-- Overlay do tutorial -->
+<div id="tutorialOverlay" class="tutorial-overlay" style="display:none;"></div>
+<div id="tutorialBox" class="tutorial-box" style="display:none;">
+    <p id="tutorialTexto"></p>
+    <div class="tutorial-controls">
+        <button id="btnAnterior" class="btn-tut">⬅ Anterior</button>
+        <button id="btnProximo" class="btn-tut">Próximo ➡</button>
+        <button id="btnFechar" class="btn-tut">Fechar ✖</button>
+    </div>
+</div>

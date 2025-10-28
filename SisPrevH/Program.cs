@@ -1,15 +1,30 @@
-var builder = WebApplication.CreateBuilder(args);
+﻿var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// ==========================================
+// 🔹 Adiciona os serviços antes do Build()
+// ==========================================
 builder.Services.AddControllersWithViews();
+
+// 🔹 Adiciona suporte à sessão
+builder.Services.AddSession(options =>
+{
+    // opcional: tempo de expiração da sessão (em minutos)
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+// 🔹 Permite acessar o HttpContext nas Views (_Layout)
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// ==========================================
+// 🔹 Configuração do pipeline HTTP
+// ==========================================
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -18,10 +33,16 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// 🔹 Ativa o uso de sessão (antes do Authorization!)
+app.UseSession();
+
 app.UseAuthorization();
 
+// ==========================================
+// 🔹 Define a rota padrão (começa no Login)
+// ==========================================
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Login}/{action=Index}/{id?}");
 
 app.Run();
