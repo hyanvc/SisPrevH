@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Cadastro";
+}
+
+<link rel="stylesheet" href="~/css/login.css" />
+<script src="~/js/cadastro.js"></script>
+
+<div class="login-container facil" id="cadastroContainer">
+    <h2 class="titulo">Cadastro de Usuário</h2>
+
+    <form id="formCadastro" class="login-form">
+        <div class="form-group">
+            <label for="Nome">Nome</label>
+            <input type="text" id="Nome" class="form-control" placeholder="Digite seu nome" required />
+        </div>
+
+        <div class="form-group">
+            <label for="Email">Email</label>
+            <input type="email" id="Email" class="form-control" placeholder="Digite seu e-mail" required />
+        </div>
+
+        <div class="form-group">
+            <label for="Usuario">Usuário</label>
+            <input type="text" id="Usuario" class="form-control" placeholder="Crie um usuário" required />
+        </div>
+
+        <div class="form-group">
+            <label for="Senha">Senha</label>
+            <input type="password" id="Senha" class="form-control" placeholder="Crie uma senha" required />
+        </div>
+
+        <!-- Botão de ajuda só no modo fácil -->
+        <button type="button" id="btnAjuda" class="btn btn-ajuda facil-only">❓ Dúvidas? Clique Aqui</button>
+
+        <!-- Botão de cadastro -->
+        <button type="submit" class="btn btn-login">Cadastrar</button>
+    </form>
+</div>
+
+<!-- Overlay e caixa do tutorial -->
+<div id="tutorialOverlayCadastro" class="tutorial-overlay"></div>
+<div id="tutorialBoxCadastro" class="tutorial-box">
+    <p id="tutorialTextoCadastro"></p>
+    <div class="tutorial-controls">
+        <button id="btnAnteriorCadastro" class="btn-tut">⬅ Anterior</button>
+        <button id="btnProximoCadastro" class="btn-tut">Próximo ➡</button>
+        <button id="btnFecharCadastro" class="btn-tut">Fechar ✖</button>
+    </div>
+</div>
+
+<!-- Botão alternar modo -->
+<div class="text-center mt-3">
+    <button type="button" id="btnAlternar" class="btn btn-toggle">Tornar Difícil</button>
+</div>

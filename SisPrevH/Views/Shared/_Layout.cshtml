@@ -66,10 +66,7 @@
             <div>
                 &copy; 2025 - SisPrevH -
                 <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </div>
-            <div>
-                <button type="button" id="btnAlternar" class="btn btn-toggle">Tornar Difícil</button>
-            </div>
+            </div>     
         </div>
     </footer>
 
@@ -77,6 +74,8 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/login.js" asp-append-version="true"></script>
+
+        <script src="~/js/site.js"></script>  <!-- JS global -->
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -118,3 +117,5 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+
