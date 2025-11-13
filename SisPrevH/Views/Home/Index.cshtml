@@ -1,8 +1,154 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@* @{
+    ViewData["Title"] = "Painel - Home";
+    var usuarioLogado = Context.Session.GetString("UsuarioLogado") ?? "Visitante";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<link rel="stylesheet" href="~/css/login.css" />
+<link rel="stylesheet" href="~/css/home.css" />
+<script src="~/js/home.js"></script>
+
+<div class="home-header">
+    <h1>Olá, <span id="nomeUsuario">@usuarioLogado</span> 👋</h1>
+    <p class="sub">Resumo rápido da sua previdência</p>
 </div>
+
+<div class="dashboard-grid" role="region" aria-label="Resumo da previdência">
+    <div class="card card-green" aria-live="polite">
+        <div class="card-title">Saldo Total</div>
+        <div class="card-value" id="saldoTotal">R$ 0,00</div>
+        <div class="card-small">Última atualização: <span id="saldoAtualizado">--:--:--</span></div>
+    </div>
+
+    <div class="card card-green" aria-live="polite">
+        <div class="card-title">Contribuição Mensal</div>
+        <div class="card-value" id="contribMensal">R$ 0,00</div>
+        <div class="card-small">Próximo débito: <span id="proximoDebito">--/--/----</span></div>
+    </div>
+
+    <div class="card card-green" aria-live="polite">
+        <div class="card-title">Tempo de Contribuição</div>
+        <div class="card-value" id="tempoContrib">0 anos</div>
+        <div class="card-small">A partir do registro inicial</div>
+    </div>
+
+    <div class="card card-green" aria-live="polite">
+        <div class="card-title">Benefício Estimado</div>
+        <div class="card-value" id="beneficioEstimado">R$ 0,00</div>
+        <div class="card-small">Valor aproximado (simulação)</div>
+    </div>
+</div>
+
+<section class="history-section" aria-label="Histórico de pagamentos">
+    <div class="history-header">
+        <h2>Histórico de Notificações</h2>
+        <div>
+            <button id="btnAtualizar" class="btn btn-verde">Atualizar agora</button>
+            <button id="btnToggleStream" class="btn btn-verde">Pausar atualizações</button>
+        </div>
+    </div>
+
+    <table class="history-table" role="table" aria-label="Tabela de histórico">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Situação</th>
+            </tr>
+        </thead>
+        <tbody id="historyBody">
+            <!-- preenchido por JS -->
+        </tbody>
+    </table>
+</section>
+
+<section class="notes">
+    <h3>Observações</h3>
+    <ul>
+        <li>Dados exibidos são simulados para demonstração de UX.</li>
+        <li>Use os botões para pausar/forçar atualização e testar acessibilidade.</li>
+    </ul>
+</section>
+ *@
+
+
+@{
+    ViewData["Title"] = "Painel - Home";
+    var usuarioLogado = Context.Session.GetString("UsuarioLogado") ?? "Visitante";
+}
+
+<link rel="stylesheet" href="~/css/login.css" />
+<link rel="stylesheet" href="~/css/home.css" />
+<!-- ApexCharts CDN -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="~/js/home.js"></script>
+
+<div class="home-header">
+    <h1>Olá, <span id="nomeUsuario">@usuarioLogado</span> 👋</h1>
+    <p class="sub">Resumo rápido da sua previdência</p>
+</div>
+
+<div class="dashboard-grid" role="region" aria-label="Resumo da previdência">
+    <div class="card card-green" aria-live="polite">
+        <div class="card-title">Saldo Total</div>
+        <div class="card-value" id="saldoTotal">R$ 0,00</div>
+        <div class="card-small">Última atualização: <span id="saldoAtualizado">--:--:--</span></div>
+    </div>
+
+    <div class="card card-green" aria-live="polite">
+        <div class="card-title">Contribuição Mensal</div>
+        <div class="card-value" id="contribMensal">R$ 0,00</div>
+        <div class="card-small">Próximo débito: <span id="proximoDebito">--/--/----</span></div>
+    </div>
+
+    <div class="card card-green" aria-live="polite">
+        <div class="card-title">Tempo de Contribuição</div>
+        <div class="card-value" id="tempoContrib">0 anos</div>
+        <div class="card-small">A partir do registro inicial</div>
+    </div>
+
+    <div class="card card-green" aria-live="polite">
+        <div class="card-title">Benefício Estimado</div>
+        <div class="card-value" id="beneficioEstimado">R$ 0,00</div>
+        <div class="card-small">Valor aproximado (simulação)</div>
+    </div>
+</div>
+
+<!-- ======= GRÁFICOS ======= -->
+<div class="charts-row" style="max-width:1100px;margin:16px auto;padding:0 15px;gap:16px;display:grid;grid-template-columns: 1fr 360px;">
+    <!-- área grande: gráfico de barras (contribuições por mês) -->
+    <div class="chart-card">
+        <div class="chart-card-title">Contribuições (últimos 12 meses)</div>
+        <div id="chartContribuicoes" style="height:280px;"></div>
+    </div>
+
+    <!-- área pequena: rosca de composição -->
+    <div class="chart-card">
+        <div class="chart-card-title">Composição da carteira</div>
+        <div id="chartComposicao" style="height:280px;"></div>
+    </div>
+</div>
+
+<section class="history-section" aria-label="Histórico de pagamentos">
+    <div class="history-header">
+        <h2>Histórico de Notificações</h2>
+        <div>
+            <button id="btnAtualizar" class="btn btn-verde">Atualizar agora</button>
+            <button id="btnToggleStream" class="btn btn-verde">Pausar atualizações</button>
+        </div>
+    </div>
+
+    <table class="history-table" role="table" aria-label="Tabela de histórico">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Situação</th>
+            </tr>
+        </thead>
+        <tbody id="historyBody">
+            <!-- preenchido por JS -->
+        </tbody>
+    </table>
+</section>
