@@ -127,3 +127,41 @@
         all: unset;
         display: block;
     }
+
+
+.btn-cadastro {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.2s ease;
+}
+
+    .btn-cadastro:hover {
+        background-color: #218838;
+    }
+
+
+.btn-cadastro {
+    background-color: #20c997; /* mesma cor dos outros botões */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 1em;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.2s ease;
+}
+
+    .btn-cadastro:hover {
+        background-color: #1aa179; /* hover igual aos outros */
+    }

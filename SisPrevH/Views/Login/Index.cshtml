@@ -1,5 +1,4 @@
-﻿@model SisPrevH.Models.LoginViewModel
-@{
+﻿@{
     ViewData["Title"] = "Login";
 }
 
@@ -7,51 +6,35 @@
 <script src="~/js/login.js"></script>
 
 <div class="login-container facil" id="loginContainer">
-    <!-- Botões no canto superior direito -->
-   @*  <div style="position: absolute; top: 10px; right: 10px; display: flex; gap: 5px; z-index:10;">
-        <button type="button" id="btnAlternar" class="btn btn-toggle">Tornar Difícil</button>
-        <button type="button" id="btnAumentarFonte" class="btn btn-toggle">A+</button>
-        <button type="button" id="btnDiminuirFonte" class="btn btn-toggle">A-</button>
-    </div> *@
+    <h2 class="titulo">Acesso ao Sistema</h2>
 
-    <h2 class="titulo">Sistema de Previdência</h2>
-
-    <form method="post" class="login-form" aria-label="Formulário de Login">
+    <form id="formLogin" class="login-form">
         <div class="form-group">
             <label for="Usuario">Usuário</label>
-            <input asp-for="Usuario" class="form-control" id="campoUsuario" placeholder="Digite seu usuário" aria-required="true" />
+            <input type="text" id="Usuario" class="form-control" placeholder="Digite seu usuário" required />
         </div>
 
         <div class="form-group">
             <label for="Senha">Senha</label>
-            <input asp-for="Senha" type="password" class="form-control" id="campoSenha" placeholder="Digite sua senha" aria-required="true" />
+            <input type="password" id="Senha" class="form-control" placeholder="Digite sua senha" required />
         </div>
 
-        <!-- Código de Segurança apenas no modo difícil -->
-        <div class="form-group dificil-only">
-            <label for="CodigoSeguranca">Código de Segurança</label>
-            <input asp-for="CodigoSeguranca" class="form-control" id="campoCodigo" />
-        </div>
-
-        <!-- Botão de ajuda - só no modo fácil -->
+        <!-- Botão de explicação só no modo fácil -->
         <button type="button" id="btnAjuda" class="btn btn-ajuda facil-only">❓ Dúvidas? Clique Aqui</button>
 
         <!-- Botão de login -->
         <button type="submit" class="btn btn-login">Entrar</button>
-    </form>
 
-    @if (ViewBag.Mensagem != null)
-    {
-        <p class="mensagem">@ViewBag.Mensagem</p>
-    }
-    <div>
-        <button type="button" id="btnAlternar" class="btn btn-toggle">Tornar Difícil</button>
-    </div>
+        <!-- Novo botão de cadastro -->
+        <div class="text-center mt-3">
+            <a href="/Cadastro/Index" class="btn btn-cadastro">Cadastre-se</a>
+        </div>
+    </form>
 </div>
 
-<!-- Overlay do tutorial -->
-<div id="tutorialOverlay" class="tutorial-overlay" style="display:none;"></div>
-<div id="tutorialBox" class="tutorial-box" style="display:none;">
+<!-- Overlay e tutorial -->
+<div id="tutorialOverlay" class="tutorial-overlay"></div>
+<div id="tutorialBox" class="tutorial-box">
     <p id="tutorialTexto"></p>
     <div class="tutorial-controls">
         <button id="btnAnterior" class="btn-tut">⬅ Anterior</button>
@@ -60,3 +43,7 @@
     </div>
 </div>
 
+<!-- Botão alternar modo -->
+<div class="text-center mt-3">
+    <button type="button" id="btnAlternar" class="btn btn-toggle">Tornar Difícil</button>
+</div>
