@@ -1,53 +1,120 @@
-﻿@* @{
+﻿@{
     ViewData["Title"] = "Painel - Home";
     var usuarioLogado = Context.Session.GetString("UsuarioLogado") ?? "Visitante";
 }
 
 <link rel="stylesheet" href="~/css/login.css" />
 <link rel="stylesheet" href="~/css/home.css" />
-<script src="~/js/home.js"></script>
 
-<div class="home-header">
-    <h1>Olá, <span id="nomeUsuario">@usuarioLogado</span> 👋</h1>
-    <p class="sub">Resumo rápido da sua previdência</p>
-</div>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="~/js/home-simples.js"></script>
 
-<div class="dashboard-grid" role="region" aria-label="Resumo da previdência">
-    <div class="card card-green" aria-live="polite">
-        <div class="card-title">Saldo Total</div>
-        <div class="card-value" id="saldoTotal">R$ 0,00</div>
-        <div class="card-small">Última atualização: <span id="saldoAtualizado">--:--:--</span></div>
+<!-- ===================== TELA SIMPLES ===================== -->
+<div id="modoFacil">
+    <div class="home-header">
+        <h1>Olá, <span id="nomeUsuario">@usuarioLogado</span> 👋</h1>
+        <p class="sub">Resumo rápido da sua previdência</p>
     </div>
 
-    <div class="card card-green" aria-live="polite">
-        <div class="card-title">Contribuição Mensal</div>
-        <div class="card-value" id="contribMensal">R$ 0,00</div>
-        <div class="card-small">Próximo débito: <span id="proximoDebito">--/--/----</span></div>
-    </div>
+    <div class="dashboard-grid">
+        <div class="card card-green">
+            <div class="card-title">Saldo Total</div>
+            <div class="card-value" id="saldoTotal_f">R$ 0,00</div>
+            <div class="card-small">Última atualização: <span id="saldoAtualizado_f">--:--:--</span></div>
+        </div>
 
-    <div class="card card-green" aria-live="polite">
-        <div class="card-title">Tempo de Contribuição</div>
-        <div class="card-value" id="tempoContrib">0 anos</div>
-        <div class="card-small">A partir do registro inicial</div>
-    </div>
+        <div class="card card-green">
+            <div class="card-title">Contribuição Mensal</div>
+            <div class="card-value" id="contribMensal_f">R$ 0,00</div>
+            <div class="card-small">Próximo débito: <span id="proximoDebito_f">--/--/----</span></div>
+        </div>
 
-    <div class="card card-green" aria-live="polite">
-        <div class="card-title">Benefício Estimado</div>
-        <div class="card-value" id="beneficioEstimado">R$ 0,00</div>
-        <div class="card-small">Valor aproximado (simulação)</div>
-    </div>
-</div>
+        <div class="card card-green">
+            <div class="card-title">Tempo de Contribuição</div>
+            <div class="card-value" id="tempoContrib_f">0 anos</div>
+            <div class="card-small">A partir do registro inicial</div>
+        </div>
 
-<section class="history-section" aria-label="Histórico de pagamentos">
-    <div class="history-header">
-        <h2>Histórico de Notificações</h2>
-        <div>
-            <button id="btnAtualizar" class="btn btn-verde">Atualizar agora</button>
-            <button id="btnToggleStream" class="btn btn-verde">Pausar atualizações</button>
+        <div class="card card-green">
+            <div class="card-title">Benefício Estimado</div>
+            <div class="card-value" id="beneficioEstimado_f">R$ 0,00</div>
+            <div class="card-small">Valor aproximado (simulação)</div>
         </div>
     </div>
 
-    <table class="history-table" role="table" aria-label="Tabela de histórico">
+    <!-- GRÁFICOS -->
+    <section style="margin-top: 25px;">
+        <h2>Contribuições</h2>
+        <div id="chartContribuicoes_f" style="width:100%; height:300px;"></div>
+    </section>
+
+    <section style="margin-top: 40px;">
+        <h2>Composição da Carteira</h2>
+        <div id="chartComposicao_f" style="width:100%; height:300px;"></div>
+    </section>
+
+    <section class="history-section">
+        <div class="history-header">
+            <h2>Histórico de Notificações</h2>
+            <div>
+                <button id="btnAtualizar_f" class="btn btn-verde">Atualizar agora</button>
+                <button id="btnToggleStream_f" class="btn btn-verde">Pausar atualizações</button>
+            </div>
+        </div>
+
+        <table class="history-table">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>Situação</th>
+                </tr>
+            </thead>
+            <tbody id="historyBody_f"></tbody>
+        </table>
+    </section>
+</div>
+
+
+
+
+<!-- ===================== BOTÃO TOGGLE ===================== -->
+<div style="text-align:center;margin:30px 0;">
+    <button id="btnToggleModo" class="btn btn-verde">Modo Difícil</button>
+</div>
+
+<!-- CONTAINER DA TELA DIFÍCIL (INICIALMENTE ESCONDIDO) -->
+<div id="modoDificil" style="display:none;">
+
+    <h1>Olá, @usuarioLogado 👋</h1>
+    <p>Resumo rápido da sua previdência</p>
+
+    <hr />
+
+    <h2>Resumo</h2>
+
+    <div>
+        <p><strong>Saldo Total:</strong> <span id="dif_saldoTotal">R$ 0,00</span></p>
+        <p><strong>Última atualização:</strong> <span id="dif_saldoAtualizado">--:--:--</span></p>
+
+        <p><strong>Contribuição Mensal:</strong> <span id="dif_contribMensal">R$ 0,00</span></p>
+        <p><strong>Próximo débito:</strong> <span id="dif_proximoDebito">--/--/----</span></p>
+
+        <p><strong>Tempo de Contribuição:</strong> <span id="dif_tempoContrib">0 anos</span></p>
+        <p><strong>Benefício Estimado:</strong> <span id="dif_beneficioEstimado">R$ 0,00</span></p>
+    </div>
+
+    <hr />
+
+    <h2>Histórico de Notificações</h2>
+
+    <button id="dif_btnAtualizar">Atualizar agora</button>
+    <button id="dif_btnToggleStream">Pausar atualizações</button>
+
+    <br /><br />
+
+    <table border="1" cellpadding="6">
         <thead>
             <tr>
                 <th>Data</th>
@@ -56,99 +123,14 @@
                 <th>Situação</th>
             </tr>
         </thead>
-        <tbody id="historyBody">
-            <!-- preenchido por JS -->
+        <tbody id="dif_historyBody">
         </tbody>
     </table>
-</section>
 
-<section class="notes">
-    <h3>Observações</h3>
-    <ul>
-        <li>Dados exibidos são simulados para demonstração de UX.</li>
-        <li>Use os botões para pausar/forçar atualização e testar acessibilidade.</li>
-    </ul>
-</section>
- *@
+</div>
 
 
-@{
-    ViewData["Title"] = "Painel - Home";
-    var usuarioLogado = Context.Session.GetString("UsuarioLogado") ?? "Visitante";
-}
-
-<link rel="stylesheet" href="~/css/login.css" />
-<link rel="stylesheet" href="~/css/home.css" />
-<!-- ApexCharts CDN -->
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="~/js/home.js"></script>
 
-<div class="home-header">
-    <h1>Olá, <span id="nomeUsuario">@usuarioLogado</span> 👋</h1>
-    <p class="sub">Resumo rápido da sua previdência</p>
-</div>
 
-<div class="dashboard-grid" role="region" aria-label="Resumo da previdência">
-    <div class="card card-green" aria-live="polite">
-        <div class="card-title">Saldo Total</div>
-        <div class="card-value" id="saldoTotal">R$ 0,00</div>
-        <div class="card-small">Última atualização: <span id="saldoAtualizado">--:--:--</span></div>
-    </div>
-
-    <div class="card card-green" aria-live="polite">
-        <div class="card-title">Contribuição Mensal</div>
-        <div class="card-value" id="contribMensal">R$ 0,00</div>
-        <div class="card-small">Próximo débito: <span id="proximoDebito">--/--/----</span></div>
-    </div>
-
-    <div class="card card-green" aria-live="polite">
-        <div class="card-title">Tempo de Contribuição</div>
-        <div class="card-value" id="tempoContrib">0 anos</div>
-        <div class="card-small">A partir do registro inicial</div>
-    </div>
-
-    <div class="card card-green" aria-live="polite">
-        <div class="card-title">Benefício Estimado</div>
-        <div class="card-value" id="beneficioEstimado">R$ 0,00</div>
-        <div class="card-small">Valor aproximado (simulação)</div>
-    </div>
-</div>
-
-<!-- ======= GRÁFICOS ======= -->
-<div class="charts-row" style="max-width:1100px;margin:16px auto;padding:0 15px;gap:16px;display:grid;grid-template-columns: 1fr 360px;">
-    <!-- área grande: gráfico de barras (contribuições por mês) -->
-    <div class="chart-card">
-        <div class="chart-card-title">Contribuições (últimos 12 meses)</div>
-        <div id="chartContribuicoes" style="height:280px;"></div>
-    </div>
-
-    <!-- área pequena: rosca de composição -->
-    <div class="chart-card">
-        <div class="chart-card-title">Composição da carteira</div>
-        <div id="chartComposicao" style="height:280px;"></div>
-    </div>
-</div>
-
-<section class="history-section" aria-label="Histórico de pagamentos">
-    <div class="history-header">
-        <h2>Histórico de Notificações</h2>
-        <div>
-            <button id="btnAtualizar" class="btn btn-verde">Atualizar agora</button>
-            <button id="btnToggleStream" class="btn btn-verde">Pausar atualizações</button>
-        </div>
-    </div>
-
-    <table class="history-table" role="table" aria-label="Tabela de histórico">
-        <thead>
-            <tr>
-                <th>Data</th>
-                <th>Descrição</th>
-                <th>Valor</th>
-                <th>Situação</th>
-            </tr>
-        </thead>
-        <tbody id="historyBody">
-            <!-- preenchido por JS -->
-        </tbody>
-    </table>
-</section>
