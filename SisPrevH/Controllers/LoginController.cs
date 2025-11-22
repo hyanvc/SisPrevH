@@ -12,7 +12,7 @@ namespace SisPrevH.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(LoginViewModel model)
+        public IActionResult Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
