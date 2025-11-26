@@ -1,7 +1,7 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
     const container = document.getElementById("loginContainer");
     const btnAlternar = document.getElementById("btnAlternar");
-    const btnAjuda = document.getElementById("btnAjuda");
+    const btnAjuda = document.getElementById("btnAjudaLogin");
     const btnAumentar = document.getElementById("btnAumentarFonte");
     const btnDiminuir = document.getElementById("btnDiminuirFonte");
     let tamanhoFonte = 16; // valor base

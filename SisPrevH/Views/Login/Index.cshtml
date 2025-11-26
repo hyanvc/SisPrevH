@@ -11,16 +11,16 @@
     <form asp-controller="Login" asp-action="Login" method="post" id="formCadastro" class="login-form">
         <div class="form-group">
             <label for="Usuario">Usuário</label>
-            <input type="text" id="Usuario" name="Usuario" class="form-control" placeholder="Digite seu usuário" required />
+            <input type="text" id="campoUsuario" name="Usuario" class="form-control" placeholder="Digite seu usuário" required />
         </div>
 
         <div class="form-group">
             <label for="Senha">Senha</label>
-            <input type="password" id="Senha" name="Senha" class="form-control" placeholder="Digite sua senha" required />
+            <input type="password" id="campoSenha" name="Senha" class="form-control" placeholder="Digite sua senha" required />
         </div>
 
         <!-- Botão de explicação só no modo fácil -->
-        <button type="button" id="btnAjuda" class="btn btn-ajuda facil-only">❓ Dúvidas? Clique Aqui</button>
+        <button type="button" id="btnAjudaLogin" class="btn btn-ajuda facil-only">❓ Dúvidas? Clique Aqui</button>
 
         <!-- Botão de login -->
         <button type="submit" class="btn btn-login">Entrar</button>
