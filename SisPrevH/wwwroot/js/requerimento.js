@@ -20,11 +20,9 @@
         btnDificil.classList.add("ativo");
     });
 
-
-
-    // -----------------------------
+    // ------------------------------------------
     //  TUTORIAL
-    // -----------------------------
+    // ------------------------------------------
 
     const passos = [
         {
@@ -35,7 +33,7 @@
         {
             seletor: "[data-tutorial='beneficio']",
             titulo: "Tipo de Aposentadoria",
-            texto: "Escolha aqui o tipo de aposentadoria que deseja requerer."
+            texto: "Escolha o tipo de aposentadoria que deseja requerer."
         },
         {
             seletor: "[data-tutorial='documentos']",
@@ -45,7 +43,7 @@
         {
             seletor: "[data-tutorial='enviar']",
             titulo: "Enviar Requerimento",
-            texto: "Quando tudo estiver certo, clique aqui para finalizar."
+            texto: "Ao finalizar tudo, clique para enviar seu requerimento."
         }
     ];
 
@@ -75,20 +73,19 @@
 
         const rect = alvo.getBoundingClientRect();
 
-        tooltip.style.top = window.scrollY + rect.top + rect.height + 15 + "px";
+        tooltip.style.top = window.scrollY + rect.bottom + 15 + "px";
         tooltip.style.left = window.scrollX + rect.left + "px";
     }
 
     btnAjuda.addEventListener("click", () => {
         overlay.classList.remove("escondido");
         tooltip.classList.remove("escondido");
-        indexPasso = 0;
 
         document.body.classList.add("tutorial-escurecer");
 
+        indexPasso = 0;
         mostrarPasso();
     });
-
 
     btnProximo.addEventListener("click", () => {
         indexPasso++;
@@ -101,6 +98,8 @@
         mostrarPasso();
     });
 
+    btnFechar.addEventListener("click", fecharTutorial);
+
     function fecharTutorial() {
         overlay.classList.add("escondido");
         tooltip.classList.add("escondido");
@@ -111,7 +110,4 @@
             el.classList.remove("highlight-focus")
         );
     }
-
-
-    btnFechar.addEventListener("click", fecharTutorial);
 });

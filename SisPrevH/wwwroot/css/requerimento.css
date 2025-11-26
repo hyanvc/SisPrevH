@@ -12,8 +12,10 @@
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     margin-bottom: 25px;
+    position: relative;
 }
 
+/* Título dos cards */
 .card-titulo {
     font-size: 20px;
     color: #20c997;
@@ -56,7 +58,7 @@ input, select {
     cursor: pointer;
 }
 
-/* Botões modo */
+/* Alternância de modo */
 .modo-toggle {
     display: flex;
     gap: 10px;
@@ -88,7 +90,29 @@ input, select {
     cursor: pointer;
 }
 
-/* Overlay */
+/* =============================== */
+/*        MODO TUTORIAL            */
+/* =============================== */
+
+/* ESCURECER O RESTO */
+body.tutorial-escurecer .card,
+body.tutorial-escurecer .btn-enviar,
+body.tutorial-escurecer .btn-ajuda,
+body.tutorial-escurecer .btn-modo {
+    filter: brightness(0.35);
+    transition: 0.25s;
+}
+
+/* O ELEMENTO EM FOCO */
+.highlight-focus {
+    filter: brightness(1) !important;
+    position: relative;
+    z-index: 2001;
+    box-shadow: 0 0 0 3px #20c997 !important;
+    border-radius: 10px;
+}
+
+/* Overlay escuro */
 .tutorial-overlay {
     position: fixed;
     top: 0;
@@ -97,14 +121,14 @@ input, select {
     height: 100%;
     background: rgba(0,0,0,0.55);
     backdrop-filter: blur(2px);
-    z-index: 1000;
+    z-index: 1500;
 }
 
 .escondido {
     display: none !important;
 }
 
-/* Tooltip explicativo */
+/* Tooltip */
 .tutorial-tooltip {
     position: absolute;
     background: #ffffff;
@@ -112,7 +136,7 @@ input, select {
     border-radius: 10px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.25);
     max-width: 330px;
-    z-index: 2000;
+    z-index: 2500;
 }
 
     .tutorial-tooltip h3 {
@@ -131,19 +155,10 @@ input, select {
     border: none;
     background: #20c997;
     color: white;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
 }
 
-.btn-fechar {
-    background: #999;
-}
-
-/* Destaque do campo */
-.highlight-focus {
-    position: relative;
-    z-index: 1500;
-    box-shadow: 0 0 0 3px #20c997 !important;
-    border-radius: 8px;
-}
-
+    .btn-tutorial.btn-fechar {
+        background: #dc3545;
+    }
