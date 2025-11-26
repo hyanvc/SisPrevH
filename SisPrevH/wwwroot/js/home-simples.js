@@ -15,20 +15,30 @@
 
     let streamAtivo = true;
     let atualizacaoInterval;
+    var dificil = window.modoDificil;
 
     // =====================================================
     // FUNÇÃO QUE MUDA ENTRE FÁCIL <-> DIFÍCIL
     // =====================================================
+    if (dificil) {
+        modoFacil.style.display = "none";
+        modoDificil.style.display = "block";
+
+        btnToggleModo.textContent = "Modo Fácil";
+    }
+
     btnToggleModo.onclick = function () {
         const facilVisivel = modoFacil.style.display !== "none";
 
         if (facilVisivel) {
             // Indo para MODO DIFÍCIL
+            debugger;
             modoFacil.style.display = "none";
             modoDificil.style.display = "block";
 
             btnToggleModo.textContent = "Modo Fácil";
         } else {
+            
             // Voltando para MODO FÁCIL
             modoFacil.style.display = "block";
             modoDificil.style.display = "none";

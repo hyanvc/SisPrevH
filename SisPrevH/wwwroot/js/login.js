@@ -1,28 +1,53 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
+
+    // ==========================================
+    // DEFINIR MODO PADRÃO
+    // ==========================================
+    var modoDificil = window.modoDificil;
+
     const container = document.getElementById("loginContainer");
     const btnAlternar = document.getElementById("btnAlternar");
     const btnAjuda = document.getElementById("btnAjudaLogin");
     const btnAumentar = document.getElementById("btnAumentarFonte");
     const btnDiminuir = document.getElementById("btnDiminuirFonte");
-    let tamanhoFonte = 16; // valor base
+    let tamanhoFonte = 16;
 
+
+    // ==========================================
+    // FORÇA O MODO DE INÍCIO
+    // ==========================================
+    if (modoDificil && container) {
+        container.classList.remove("facil");
+        container.classList.add("dificil");
+
+        if (btnAlternar) btnAlternar.textContent = "Tornar Fácil";
+        if (btnAjuda) btnAjuda.style.display = "none"; // tutorial desativado no modo difícil
+    }
+
+
+    // =======================================================
     // Alternar modo fácil/difícil
+    // =======================================================
     btnAlternar?.addEventListener("click", function () {
         if (container.classList.contains("facil")) {
             container.classList.remove("facil");
             container.classList.add("dificil");
             btnAlternar.textContent = "Tornar Fácil";
-            if (btnAjuda) btnAjuda.style.display = "none"; // tutorial desativado no modo difícil
+            if (btnAjuda) btnAjuda.style.display = "none";
         } else {
             container.classList.remove("dificil");
             container.classList.add("facil");
             btnAlternar.textContent = "Tornar Difícil";
-            if (btnAjuda) btnAjuda.style.display = "block"; // tutorial ativo
+            if (btnAjuda) btnAjuda.style.display = "block";
         }
     });
 
-    // Tutorial apenas no modo fácil
+
+    // =======================================================
+    // Tutorial (somente no modo fácil)
+    // =======================================================
     if (btnAjuda) {
+
         const passos = [
             { elemento: "#campoUsuario", texto: "Digite seu nome de usuário. Geralmente é seu CPF ou e-mail." },
             { elemento: "#campoSenha", texto: "Digite sua senha pessoal." },
@@ -38,14 +63,16 @@
         const btnFechar = document.getElementById("btnFechar");
 
         function mostrarPasso(index) {
-            if (!container.classList.contains("facil")) return; // tutorial só no modo fácil
+            if (!container.classList.contains("facil")) return;
             if (index < 0 || index >= passos.length) return;
 
             const passo = passos[index];
             const alvo = document.querySelector(passo.elemento);
             if (!alvo) return;
 
-            document.querySelectorAll(".tutorial-highlight").forEach(e => e.classList.remove("tutorial-highlight"));
+            document.querySelectorAll(".tutorial-highlight")
+                .forEach(e => e.classList.remove("tutorial-highlight"));
+
             alvo.classList.add("tutorial-highlight");
 
             texto.textContent = passo.texto;
@@ -78,24 +105,32 @@
         function fecharTutorial() {
             overlay.style.display = "none";
             box.style.display = "none";
-            document.querySelectorAll(".tutorial-highlight").forEach(e => e.classList.remove("tutorial-highlight"));
+
+            document.querySelectorAll(".tutorial-highlight")
+                .forEach(e => e.classList.remove("tutorial-highlight"));
         }
 
         btnFechar.addEventListener("click", fecharTutorial);
         overlay.addEventListener("click", fecharTutorial);
     }
 
+
+    // =======================================================
     // Aumentar fonte
+    // =======================================================
     btnAumentar?.addEventListener("click", function () {
         tamanhoFonte += 2;
         if (container) container.style.fontSize = tamanhoFonte + "px";
     });
 
+    // =======================================================
     // Diminuir fonte
+    // =======================================================
     btnDiminuir?.addEventListener("click", function () {
         if (tamanhoFonte > 10) {
             tamanhoFonte -= 2;
             if (container) container.style.fontSize = tamanhoFonte + "px";
         }
     });
+
 });

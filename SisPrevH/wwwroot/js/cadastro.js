@@ -1,8 +1,25 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
+
+    // ==========================================
+    // VARIÁVEL PARA DEFINIR MODO INICIAL
+    // ==========================================
+    var modoDificil = window.modoDificil;
+
     const container = document.getElementById("cadastroContainer");
     const form = document.getElementById("formCadastro");
     const btnAlternar = document.getElementById("btnAlternar");
     const btnAjuda = document.getElementById("btnAjuda");
+
+    // ==========================================
+    // FORÇA O ESTADO INICIAL COM BASE NA VARIÁVEL
+    // ==========================================
+    if (modoDificil && container) {
+        container.classList.remove("facil");
+        container.classList.add("dificil");
+
+        if (btnAlternar) btnAlternar.innerText = "Tornar Fácil";
+        if (btnAjuda) btnAjuda.style.display = "none";
+    }
 
     // ==============================
     // Alternar Fácil / Difícil
@@ -19,6 +36,7 @@
             if (btnAjuda) btnAjuda.style.display = container.classList.contains("facil") ? "block" : "none";
         });
     }
+
 
     // ==============================
     // Cria overlay/box do tutorial (se não existir)
@@ -74,13 +92,13 @@
     }
 
     function posicionarBox(perfilEl) {
-        // tenta posicionar a box abaixo do elemento; se estiver fora da tela, ajusta
         const rect = perfilEl.getBoundingClientRect();
         const top = window.scrollY + rect.bottom + 10;
         let left = window.scrollX + rect.left;
-        // limita left para não ultrapassar a largura da janela
         const maxLeft = window.innerWidth - box.offsetWidth - 10;
+
         if (left > maxLeft) left = Math.max(10, maxLeft);
+
         box.style.top = top + "px";
         box.style.left = left + "px";
     }
@@ -91,7 +109,6 @@
 
         const elemento = document.querySelector(etapa.elemento);
         if (!elemento) {
-            // se o elemento não existe, apenas atualiza o texto e centraliza a caixa
             texto.innerText = etapa.texto || "";
             box.style.display = "block";
             box.style.top = (window.scrollY + 100) + "px";
@@ -99,22 +116,18 @@
             return;
         }
 
-        // destacar
         limparDestaques();
         elemento.classList.add("tutorial-highlight");
 
-        // mostrar overlay + box
         overlay.style.display = "block";
         box.style.display = "block";
 
-        // texto
         texto.innerText = etapa.texto || "";
 
-        // posiciona box (posiciona e rola até o elemento se necessário)
         const rect = elemento.getBoundingClientRect();
         const visibleTop = rect.top >= 0 && rect.bottom <= window.innerHeight;
+
         if (!visibleTop) {
-            // rola até o elemento suavemente antes de posicionar
             elementScrollToView(elemento, function () {
                 posicionarBox(elemento);
             });
@@ -122,14 +135,12 @@
             posicionarBox(elemento);
         }
 
-        // atualiza visibilidade dos botões
         btnAnterior.style.display = etapaAtual === 0 ? "none" : "inline-block";
         btnProximo.style.display = etapaAtual === etapas.length - 1 ? "none" : "inline-block";
     }
 
     function elementScrollToView(el, callback) {
         el.scrollIntoView({ behavior: "smooth", block: "center" });
-        // small timeout to let scroll finish then callback
         setTimeout(function () {
             if (typeof callback === "function") callback();
         }, 300);
@@ -148,10 +159,9 @@
     }
 
     // ==============================
-    // Event listeners seguros
+    // Event listeners
     // ==============================
     btnAjuda?.addEventListener("click", function () {
-        // só abre se container estiver em modo fácil
         if (container && container.classList.contains("facil")) iniciarTutorial();
     });
 
@@ -172,10 +182,8 @@
     });
 
     btnFechar?.addEventListener("click", fecharTutorial);
-
     overlay.addEventListener("click", fecharTutorial);
 
-    // teclado: Esc fecha, Enter = próximo
     document.addEventListener("keydown", function (ev) {
         if (box.style.display === "block") {
             if (ev.key === "Escape") fecharTutorial();
@@ -192,7 +200,7 @@
     });
 
     // ==============================
-    // Enviar cadastro via POST JSON (mantive seu envio)
+    // Envio do cadastro via POST
     // ==============================
     form?.addEventListener("submit", async function (e) {
         e.preventDefault();

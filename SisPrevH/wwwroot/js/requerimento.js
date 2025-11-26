@@ -1,23 +1,42 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
 
-    // Alternância Fácil / Difícil
+    // ===============================
+    // VARIÁVEL: define o modo inicial
+    // ===============================
+    var modoDificil = window.modoDificil; 
+
     const btnFacil = document.getElementById("btnFacil");
     const btnDificil = document.getElementById("btnDificil");
     const modoFacil = document.getElementById("modoFacil");
-    const modoDificil = document.getElementById("modoDificil");
+    const modoDificilEl = document.getElementById("modoDificil");
 
-    btnFacil.addEventListener("click", () => {
-        modoFacil.classList.remove("escondido");
-        modoDificil.classList.add("escondido");
-        btnFacil.classList.add("ativo");
-        btnDificil.classList.remove("ativo");
+    if (modoDificil) {
+        if (modoFacil) modoFacil.classList.add("escondido");
+        if (modoDificilEl) modoDificilEl.classList.remove("escondido");
+        if (btnDificil) btnDificil.classList.add("ativo");
+        if (btnFacil) btnFacil.classList.remove("ativo");
+    } else {
+        if (modoFacil) modoFacil.classList.remove("escondido");
+        if (modoDificilEl) modoDificilEl.classList.add("escondido");
+        if (btnFacil) btnFacil.classList.add("ativo");
+        if (btnDificil) btnDificil.classList.remove("ativo");
+    }
+
+    // listeners de alternância
+    btnFacil?.addEventListener("click", () => {
+        // atualiza exibição (o comportamento do modoDificil pode permanecer apenas como "inicial")
+        if (modoFacil) modoFacil.classList.remove("escondido");
+        if (modoDificilEl) modoDificilEl.classList.add("escondido");
+        if (btnFacil) btnFacil.classList.add("ativo");
+        if (btnDificil) btnDificil.classList.remove("ativo");
     });
 
-    btnDificil.addEventListener("click", () => {
-        modoFacil.classList.add("escondido");
-        modoDificil.classList.remove("escondido");
-        btnFacil.classList.remove("ativo");
-        btnDificil.classList.add("ativo");
+    btnDificil?.addEventListener("click", () => {
+        debugger;
+        if (modoFacil) modoFacil.classList.add("escondido");
+        if (modoDificilEl) modoDificilEl.classList.remove("escondido");
+        if (btnFacil) btnFacil.classList.remove("ativo");
+        if (btnDificil) btnDificil.classList.add("ativo");
     });
 
     // ------------------------------------------
@@ -66,6 +85,8 @@
         );
 
         const alvo = document.querySelector(passo.seletor);
+        if (!alvo) return;
+
         alvo.classList.add("highlight-focus");
 
         titulo.textContent = passo.titulo;
@@ -77,9 +98,20 @@
         tooltip.style.left = window.scrollX + rect.left + "px";
     }
 
-    btnAjuda.addEventListener("click", () => {
-        overlay.classList.remove("escondido");
-        tooltip.classList.remove("escondido");
+    // Se o modo inicial for difícil, podemos esconder o botão de ajuda (opcional)
+    // Aqui apenas um exemplo — comente se não quiser esconder o botão
+    if (modoDificil && btnAjuda) {
+        // btnAjuda.style.display = "none";
+        // caso prefira manter visível, comente a linha acima
+    }
+
+    btnAjuda?.addEventListener("click", () => {
+        // opcional: só permite abrir tutorial se não estiver no modo difícil inicial
+        // se quiser bloquear o tutorial totalmente no modo difícil, descomente:
+        // if (modoDificil) return;
+
+        if (overlay) overlay.classList.remove("escondido");
+        if (tooltip) tooltip.classList.remove("escondido");
 
         document.body.classList.add("tutorial-escurecer");
 
@@ -87,7 +119,7 @@
         mostrarPasso();
     });
 
-    btnProximo.addEventListener("click", () => {
+    btnProximo?.addEventListener("click", () => {
         indexPasso++;
 
         if (indexPasso >= passos.length) {
@@ -98,11 +130,11 @@
         mostrarPasso();
     });
 
-    btnFechar.addEventListener("click", fecharTutorial);
+    btnFechar?.addEventListener("click", fecharTutorial);
 
     function fecharTutorial() {
-        overlay.classList.add("escondido");
-        tooltip.classList.add("escondido");
+        if (overlay) overlay.classList.add("escondido");
+        if (tooltip) tooltip.classList.add("escondido");
 
         document.body.classList.remove("tutorial-escurecer");
 
@@ -110,4 +142,5 @@
             el.classList.remove("highlight-focus")
         );
     }
+
 });
