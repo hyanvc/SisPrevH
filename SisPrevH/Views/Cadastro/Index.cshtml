@@ -5,6 +5,25 @@
 <link rel="stylesheet" href="~/css/login.css" />
 <script src="~/js/cadastro.js"></script>
 
+<style>
+        .btn-tut, .btn-verde {
+        background-color: #20c997 !important; /* verde padrão */
+        color: white !important;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        padding: 8px 14px;
+        margin-left: 5px;
+        transition: background 0.2s;
+    }
+    .btn-tut.btn-fechar {
+        background-color: #dc3545 !important; /* vermelho para fechar */
+    }
+    .btn-tut:hover, .btn-verde:hover {
+        background-color: #1aa179 !important;
+    }
+</style>
 <div class="login-container facil" id="cadastroContainer">
     <h2 class="titulo">Cadastro de Usuário</h2>
 
@@ -41,7 +60,8 @@
 </div>
 
 <!-- Overlay e caixa do tutorial -->
-<div id="tutorialOverlayCadastro" class="tutorial-overlay"></div>
+@Html.Partial("_Tutorial")
+@* <div id="tutorialOverlayCadastro" class="tutorial-overlay"></div>
 <div id="tutorialBoxCadastro" class="tutorial-box">
     <p id="tutorialTextoCadastro"></p>
     <div class="tutorial-controls">
@@ -49,7 +69,7 @@
         <button id="btnProximoCadastro" class="btn-tut">Próximo ➡</button>
         <button id="btnFecharCadastro" class="btn-tut">Fechar ✖</button>
     </div>
-</div>
+</div> *@
 
 <!-- Botão alternar modo -->
 @* <div class="text-center mt-3">

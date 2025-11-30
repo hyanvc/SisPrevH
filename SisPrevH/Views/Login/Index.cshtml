@@ -5,6 +5,24 @@
 <link rel="stylesheet" href="~/css/login.css" />
 <script src="~/js/login.js"></script>
 
+<style>
+    .btn-tut, .btn-verde {
+        background-color: #20c997 !important; /* verde padrão */
+        color: white !important;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        padding: 8px 14px;
+        margin-left: 5px;
+        transition: background 0.2s;
+    }
+
+
+        .btn-tut:hover, .btn-verde:hover {
+            background-color: #1aa179 !important;
+        }
+</style>
 <div class="login-container facil" id="loginContainer">
     <h2 class="titulo">Acesso ao Sistema</h2>
 
@@ -32,7 +50,8 @@
     </form>
 </div>
 
-<!-- Overlay e tutorial -->
+@Html.Partial("_Tutorial")
+@* <!-- Overlay e tutorial -->
 <div id="tutorialOverlay" class="tutorial-overlay"></div>
 <div id="tutorialBox" class="tutorial-box">
     <p id="tutorialTexto"></p>
@@ -41,7 +60,7 @@
         <button id="btnProximo" class="btn-tut">Próximo ➡</button>
         <button id="btnFechar" class="btn-tut">Fechar ✖</button>
     </div>
-</div>
+</div> *@
 
 <!-- Botão alternar modo -->
 @* <div class="text-center mt-3">
