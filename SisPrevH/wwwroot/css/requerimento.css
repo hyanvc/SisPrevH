@@ -58,6 +58,27 @@ input, select {
     cursor: pointer;
 }
 
+/* Botões padrão: mesmo estilo do .btn-enviar */
+.btn-add,
+.btn-mini {
+    padding: 10px 18px;
+    font-size: 16px;
+    background: #20c997;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    margin-top: 12px;
+}
+
+    /* Hover */
+    .btn-add:hover,
+    .btn-mini:hover {
+        background: #1bb386;
+    }
+
+
 /* Alternância de modo */
 .modo-toggle {
     display: flex;
