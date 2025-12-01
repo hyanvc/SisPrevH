@@ -24,28 +24,26 @@
         modoFacil.style.display = "none";
         modoDificil.style.display = "block";
 
-        btnToggleModo.textContent = "Modo Fácil";
     }
 
-    btnToggleModo.onclick = function () {
-        const facilVisivel = modoFacil.style.display !== "none";
+    //btnToggleModo.onclick = function () {
+    //    const facilVisivel = modoFacil.style.display !== "none";
 
-        if (facilVisivel) {
-            // Indo para MODO DIFÍCIL
-            debugger;
-            modoFacil.style.display = "none";
-            modoDificil.style.display = "block";
+    //    if (facilVisivel) {
+    //        // Indo para MODO DIFÍCIL
+    //        debugger;
+    //        modoFacil.style.display = "none";
+    //        modoDificil.style.display = "block";
 
-            btnToggleModo.textContent = "Modo Fácil";
-        } else {
+    //    } else {
             
-            // Voltando para MODO FÁCIL
-            modoFacil.style.display = "block";
-            modoDificil.style.display = "none";
+    //        // Voltando para MODO FÁCIL
+    //        modoFacil.style.display = "block";
+    //        modoDificil.style.display = "none";
 
-            btnToggleModo.textContent = "Modo Difícil";
-        }
-    };
+    //    //    btnToggleModo.textContent = "Modo Difícil";
+    //    }
+    //};
 
     // =====================================================
     // SIMULAÇÃO DE ATUALIZAÇÃO DOS VALORES
