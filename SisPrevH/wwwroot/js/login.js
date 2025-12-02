@@ -49,7 +49,7 @@
     if (btnAjuda) {
 
         const passos = [
-            { elemento: "#campoUsuario", texto: "Digite seu nome de usuário. Geralmente é seu CPF ou e-mail." },
+            { elemento: "#campoUsuario", texto: "Digite seu CPF." },
             { elemento: "#campoSenha", texto: "Digite sua senha pessoal." },
             { elemento: ".btn-login", texto: "Clique em 'Entrar' para acessar o sistema." }
         ];

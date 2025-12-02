@@ -6,7 +6,7 @@
 <script src="~/js/cadastro.js"></script>
 
 <style>
-        .btn-tut, .btn-verde {
+    .btn-tut, .btn-verde {
         background-color: #20c997 !important; /* verde padrão */
         color: white !important;
         border: none;
@@ -17,61 +17,75 @@
         margin-left: 5px;
         transition: background 0.2s;
     }
-    .btn-tut.btn-fechar {
-        background-color: #dc3545 !important; /* vermelho para fechar */
-    }
-    .btn-tut:hover, .btn-verde:hover {
-        background-color: #1aa179 !important;
-    }
+
+
+        .btn-tut:hover, .btn-verde:hover {
+            background-color: #1aa179 !important;
+        }
 </style>
+
 <div class="login-container facil" id="cadastroContainer">
     <h2 class="titulo">Cadastro de Usuário</h2>
 
     <form id="formCadastro" class="login-form">
+
+        <!-- Nome -->
         <div class="form-group">
             <label for="Nome">Nome</label>
             <input type="text" id="Nome" class="form-control" placeholder="Digite seu nome" required />
         </div>
 
+        <!-- Email -->
         <div class="form-group">
             <label for="Email">Email</label>
             <input type="email" id="Email" class="form-control" placeholder="Digite seu e-mail" required />
         </div>
 
+        <!-- Usuário -->
         <div class="form-group">
             <label for="Usuario">Usuário</label>
             <input type="text" id="Usuario" class="form-control" placeholder="Crie um usuário" required />
         </div>
 
+        <!-- Senha -->
         <div class="form-group">
             <label for="Senha">Senha</label>
             <input type="password" id="Senha" class="form-control" placeholder="Crie uma senha" required />
         </div>
 
-        <!-- Botão de ajuda só no modo fácil -->
-        <button type="button" id="btnAjuda" class="btn btn-ajuda facil-only">❓ Dúvidas? Clique Aqui</button>
+        <!-- ================================ -->
+        <!-- NOVOS CAMPOS (CPF, Nascimento, Endereço) -->
+        <!-- ================================ -->
+
+        <div class="form-group">
+            <label for="CPF">CPF</label>
+            <input type="text" id="CPF" class="form-control" placeholder="Digite seu CPF" required />
+        </div>
+
+        <div class="form-group">
+            <label for="DataNascimento">Data de Nascimento</label>
+            <input type="date" id="DataNascimento" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label for="Endereco">Endereço</label>
+            <input type="text" id="Endereco" class="form-control" placeholder="Digite seu endereço completo" required />
+        </div>
+
+        <!-- Botão de ajuda (somente modo fácil) -->
+        <button type="button" id="btnAjuda" class="btn btn-ajuda facil-only">
+            ❓ Dúvidas? Clique Aqui
+        </button>
 
         <!-- Botão de cadastro -->
         <button type="submit" class="btn btn-login">Cadastrar</button>
 
-        <!-- Novo botão para voltar à tela de login -->
-        <a href="/Login/Index" class="btn btn-cadastro">Ir para a Tela de Login</a>
+        <!-- Botão voltar para login -->
+        <a href="/Login/Index" class="btn btn-cadastro">
+            Ir para a Tela de Login
+        </a>
     </form>
 </div>
 
 <!-- Overlay e caixa do tutorial -->
 @Html.Partial("_Tutorial")
-@* <div id="tutorialOverlayCadastro" class="tutorial-overlay"></div>
-<div id="tutorialBoxCadastro" class="tutorial-box">
-    <p id="tutorialTextoCadastro"></p>
-    <div class="tutorial-controls">
-        <button id="btnAnteriorCadastro" class="btn-tut">⬅ Anterior</button>
-        <button id="btnProximoCadastro" class="btn-tut">Próximo ➡</button>
-        <button id="btnFecharCadastro" class="btn-tut">Fechar ✖</button>
-    </div>
-</div> *@
-
-<!-- Botão alternar modo -->
-@* <div class="text-center mt-3">
-    <button type="button" id="btnAlternar" class="btn btn-toggle">Tornar Difícil</button>
-</div> *@

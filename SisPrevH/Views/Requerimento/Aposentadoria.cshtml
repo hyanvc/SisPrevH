@@ -1,6 +1,14 @@
 ﻿@{
     ViewData["Title"] = "Requerer Aposentadoria";
+
+    string nome = Context.Session.GetString("UsuarioNome") ?? "";
+    string cpf = Context.Session.GetString("UsuarioCPF") ?? "";
+    string dataNascimento = Context.Session.GetString("UsuarioDataNascimento") ?? "";
+    string endereco = Context.Session.GetString("UsuarioEndereco") ?? "";
+    string email = Context.Session.GetString("UsuarioEmail") ?? "";
 }
+
+
 
 <link rel="stylesheet" href="~/css/requerimento.css" />
 
@@ -25,24 +33,24 @@
             <div class="linha">
                 <div class="campo">
                     <label>Nome Completo</label>
-                    <input type="text" />
+                    <input type="text" value="@nome" />
                 </div>
 
                 <div class="campo">
                     <label>CPF</label>
-                    <input type="text" />
+                    <input type="text" value="@cpf" />
                 </div>
             </div>
 
             <div class="linha">
                 <div class="campo">
                     <label>Data de Nascimento</label>
-                    <input type="date" />
+                    <input type="date" value="@dataNascimento" />
                 </div>
 
                 <div class="campo">
                     <label>Matrícula</label>
-                    <input type="text" />
+                    <input type="text" value="" />
                 </div>
             </div>
 
@@ -75,36 +83,36 @@
             <div class="linha">
                 <div class="campo">
                     <label>CEP</label>
-                    <input type="text" />
+                    <input type="text" value="" />
                 </div>
 
                 <div class="campo">
                     <label>Rua</label>
-                    <input type="text" />
+                    <input type="text" value="@endereco" />
                 </div>
             </div>
 
             <div class="linha">
                 <div class="campo">
                     <label>Número</label>
-                    <input type="text" />
+                    <input type="text" value="" />
                 </div>
 
                 <div class="campo">
                     <label>Complemento</label>
-                    <input type="text" />
+                    <input type="text" value="" />
                 </div>
             </div>
 
             <div class="linha">
                 <div class="campo">
                     <label>Bairro</label>
-                    <input type="text" />
+                    <input type="text" value="" />
                 </div>
 
                 <div class="campo">
                     <label>Cidade</label>
-                    <input type="text" />
+                    <input type="text" value="" />
                 </div>
 
                 <div class="campo">
@@ -129,19 +137,19 @@
             <div class="linha">
                 <div class="campo">
                     <label>Telefone</label>
-                    <input type="text" />
+                    <input type="text" value="" />
                 </div>
 
                 <div class="campo">
                     <label>Celular / WhatsApp</label>
-                    <input type="text" />
+                    <input type="text" value="" />
                 </div>
             </div>
 
             <div class="linha">
                 <div class="campo">
                     <label>E-mail</label>
-                    <input type="email" />
+                    <input type="email" value="@email" />
                 </div>
             </div>
         </div>
@@ -167,24 +175,24 @@
             <div class="linha">
                 <div class="campo">
                     <label>Último Cargo</label>
-                    <input type="text" />
+                    <input type="text" value="" />
                 </div>
 
                 <div class="campo">
                     <label>Data de Ingresso</label>
-                    <input type="date" />
+                    <input type="date" value="" />
                 </div>
 
                 <div class="campo">
                     <label>Data de Saída</label>
-                    <input type="date" />
+                    <input type="date" value="" />
                 </div>
             </div>
 
             <div class="linha">
                 <div class="campo">
                     <label>Tempo Total de Serviço (anos)</label>
-                    <input type="number" />
+                    <input type="number" value="" />
                 </div>
             </div>
 
@@ -206,12 +214,12 @@
 
                 <div class="campo">
                     <label>Descrição</label>
-                    <input type="text" />
+                    <input type="text" value="" />
                 </div>
 
                 <div class="campo">
                     <label>Anos de Exposição</label>
-                    <input type="number" />
+                    <input type="number" value="" />
                 </div>
             </div>
         </div>
@@ -223,7 +231,7 @@
             <div class="linha">
                 <div class="campo">
                     <label>Nome do Dependente</label>
-                    <input type="text" />
+                    <input type="text" value="" />
                 </div>
 
                 <div class="campo">
@@ -238,7 +246,7 @@
 
                 <div class="campo">
                     <label>Data de Nascimento</label>
-                    <input type="date" />
+                    <input type="date" value="" />
                 </div>
             </div>
 
@@ -263,12 +271,12 @@
 
                 <div class="campo">
                     <label>Agência</label>
-                    <input type="text" />
+                    <input type="text" value="" />
                 </div>
 
                 <div class="campo">
                     <label>Conta</label>
-                    <input type="text" />
+                    <input type="text" value="" />
                 </div>
             </div>
         </div>
@@ -299,6 +307,7 @@
         <button class="btn-enviar">Enviar Requerimento</button>
 
     </div>
+
 
     <!-- ====================================================================================== -->
     <!-- ================================== MODO DIFÍCIL ====================================== -->
