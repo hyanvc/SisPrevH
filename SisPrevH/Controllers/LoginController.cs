@@ -44,12 +44,9 @@ namespace SisPrevH.Controllers
                 string dataNascimento = campos[5];
                 string endereco = campos[6];
 
-                // LOGIN USANDO CPF E SENHA
                 if (model.Usuario == cpf && model.Senha == senha)
                 {
-                    // 🔥 SALVAR TODOS OS DADOS NA SESSÃO
 
-                    // salva 
                     HttpContext.Session.SetString("UsuarioLogado", nome);
                     HttpContext.Session.SetString("UsuarioNome", nome);
                     HttpContext.Session.SetString("UsuarioEmail", email);

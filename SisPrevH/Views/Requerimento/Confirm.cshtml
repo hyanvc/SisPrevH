@@ -1,0 +1,157 @@
+﻿@{
+    ViewData["Title"] = "Requerimento Recebido";
+
+
+}
+<script>
+    // TORNA DISPONÍVEL NO JS
+    var usarVersaoAntiga =true;
+</script>
+
+<style>
+    .hidden {
+        display: none !important;
+    }
+</style>
+
+<!-- =================================================================== -->
+<!-- ============================ VERSÃO ANTIGA ======================== -->
+<!-- =================================================================== -->
+<div id="versaoAntiga" class="hidden">
+
+    <h2>Requerimento Recebido (VERSÃO ANTIGA)</h2>
+
+    <p>Nome: @ViewBag.Nome</p>
+    <p>CPF: @ViewBag.CPF</p>
+    <p>Situação: Em andamento</p>
+    <p>Protocolo: @ViewBag.Protocolo</p>
+
+
+    <a href="/Home">Voltar</a>
+</div>
+
+
+
+
+<!-- =================================================================== -->
+<!-- ========================== VERSÃO BONITA ========================== -->
+<!-- =================================================================== -->
+<div id="versaoBonita">
+
+    <div class="container mt-4">
+        <div class="card" style="padding:24px; border-radius:12px; box-shadow:0 2px 6px rgba(0,0,0,0.06);">
+            <h2 class="card-titulo" style="margin-bottom:6px; font-size:24px;">Requerimento Enviado com Sucesso</h2>
+            <p style="margin-top:0; color:#666;">Seu pedido foi registrado e está em análise.</p>
+
+            <div style="margin-top:18px; border-radius:10px; overflow:hidden; background:#fff;">
+                <table style="width:100%; border-collapse:collapse; font-family:inherit;">
+                    <thead style="background:#eaf9ee;">
+                        <tr>
+                            <th style="padding:14px 16px; text-align:left; font-weight:600; color:#2b533a;">Campo</th>
+                            <th style="padding:14px 16px; text-align:left; font-weight:600; color:#2b533a;">Valor</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr style="background:#fff;">
+                            <td style="padding:14px 16px; border-top:1px solid #f0f0f0; color:#333;">Nome Completo</td>
+                            <td style="padding:14px 16px; border-top:1px solid #f0f0f0; color:#333;">
+                                @ViewBag.Nome
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="padding:14px 16px; border-top:1px solid #f0f0f0; color:#333;">CPF</td>
+                            <td style="padding:14px 16px; border-top:1px solid #f0f0f0; color:#333;">
+                                @ViewBag.CPF
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="padding:14px 16px; border-top:1px solid #f0f0f0; color:#333;">Situação</td>
+                            <td style="padding:14px 16px; border-top:1px solid #f0f0f0; font-weight:700; color:#007bff;">
+                                Em Andamento
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="padding:14px 16px; border-top:1px solid #f0f0f0; color:#333;">Protocolo</td>
+                            <td style="padding:14px 16px; border-top:1px solid #f0f0f0; color:#333;">
+                                @ViewBag.Protocolo
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top:20px; display:flex; gap:10px; align-items:center;">
+                <a href="/Home" class="btn-enviar" style="background:#17a673; color:#fff; padding:10px 16px; border-radius:8px; text-decoration:none; display:inline-block;">
+                    Voltar à Página Inicial
+                </a>
+                <a href="#" onclick="window.print();" style="background:transparent; color:#2b533a; padding:8px 12px; border-radius:8px; text-decoration:none; border:1px solid #e6efe9;">Imprimir</a>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .card-titulo {
+            font-weight: 700;
+            color: #222;
+        }
+
+        table tr:hover td {
+            background: #fbfff9;
+        }
+
+        table thead {
+            display: none;
+        }
+
+        table, tbody, tr, td {
+            display: block;
+            width: 100%;
+        }
+
+        tr {
+            margin-bottom: 10px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 0 rgba(0,0,0,0.03);
+        }
+
+        td {
+            padding: 12px 14px;
+            border: 0 !important;
+        }
+
+            td:first-child {
+                background: #f7fdf6;
+                font-weight: 600;
+                color: #2b533a;
+            }
+    </style>
+
+</div>
+
+
+
+<!-- =================================================================== -->
+<!-- ================== JS QUE MOSTRA SOMENTE UMA VERSÃO =============== -->
+<!-- =================================================================== -->
+<script>
+    function aplicarModo() {
+        const antiga = document.getElementById("versaoAntiga");
+        const bonita = document.getElementById("versaoBonita");
+
+        if (usarVersaoAntiga) {
+            antiga.classList.remove("hidden");
+            bonita.classList.add("hidden");
+        } else {
+            bonita.classList.remove("hidden");
+            antiga.classList.add("hidden");
+        }
+    }
+
+    aplicarModo();
+</script>

@@ -25,6 +25,7 @@
     <!-- =================================== MODO FÁCIL ======================================= -->
     <!-- ====================================================================================== -->
     <div id="modoFacil" class="modo-container">
+        <form asp-action="Aposentadoria" method="post">
 
         <!-- ⬛ DADOS PESSOAIS -->
         <div class="card">
@@ -33,12 +34,12 @@
             <div class="linha">
                 <div class="campo">
                     <label>Nome Completo</label>
-                    <input type="text" value="@nome" />
+                    <input type="text" name="NomeCompleto" value="@nome" />
                 </div>
 
                 <div class="campo">
                     <label>CPF</label>
-                    <input type="text" value="@cpf" />
+                    <input type="text" name="CPF" value="@cpf" />
                 </div>
             </div>
 
@@ -118,6 +119,7 @@
                 <div class="campo">
                     <label>Estado</label>
                     <select>
+                       <option>CE</option>
                         <option>SP</option>
                         <option>RJ</option>
                         <option>MG</option>
@@ -250,7 +252,7 @@
                 </div>
             </div>
 
-            <button class="btn-add" data-add="dependente">Adicionar Dependente</button>
+            <button class="btn-add" data-add="dependente">Adicionar Outro Dependente</button>
         </div>
 
         <!-- ⬛ INFORMAÇÕES BANCÁRIAS -->
@@ -305,7 +307,7 @@
         </div>
 
         <button class="btn-enviar">Enviar Requerimento</button>
-
+        </form>
     </div>
 
 
@@ -314,134 +316,160 @@
     <!-- ====================================================================================== -->
     <div id="modoDificil" class="modo-container escondido">
 
-    
+        <form asp-action="Aposentadoria" method="post">
 
-        <!-- Replicando TODOS os campos do modo Fácil -->
+            <h3>Dados Pessoais</h3>
+            Nome Completo:<br>
+            <input type="text" name="NomeCompleto"><br><br>
 
-        <h3>Dados Pessoais</h3>
-        Nome Completo:<br><input type="text"><br><br>
-        CPF:<br><input type="text"><br><br>
-        Data de Nascimento:<br><input type="date"><br><br>
-        Matrícula:<br><input type="text"><br><br>
-        Sexo:<br>
-        <select>
-            <option>Masculino</option>
-            <option>Feminino</option>
-            <option>Outro</option>
-        </select><br><br>
-        Estado Civil:<br>
-        <select>
-            <option>Solteiro</option>
-            <option>Casado</option>
-            <option>Divorciado</option>
-            <option>Viúvo</option>
-        </select><br><br>
+            CPF:<br>
+            <input type="text" name="CPF"><br><br>
 
-        <hr />
+            Data de Nascimento:<br>
+            <input type="date" name="DataNascimento"><br><br>
 
-        <h3>Endereço</h3>
-        CEP:<br><input type="text"><br><br>
-        Rua:<br><input type="text"><br><br>
-        Número:<br><input type="text"><br><br>
-        Complemento:<br><input type="text"><br><br>
-        Bairro:<br><input type="text"><br><br>
-        Cidade:<br><input type="text"><br><br>
-        Estado:<br>
-        <select>
-            <option>SP</option>
-            <option>RJ</option>
-            <option>MG</option>
-            <option>RS</option>
-            <option>SC</option>
-            <option>PR</option>
-            <option>BA</option>
-        </select><br><br>
+            Matrícula:<br>
+            <input type="text" name="Matricula"><br><br>
 
-        <hr />
+            Sexo:<br>
+            <select name="Sexo">
+                <option>Masculino</option>
+                <option>Feminino</option>
+                <option>Outro</option>
+            </select><br><br>
 
-        <h3>Contato</h3>
-        Telefone:<br><input><br><br>
-        Celular:<br><input><br><br>
-        Email:<br><input><br><br>
+            Estado Civil:<br>
+            <select name="EstadoCivil">
+                <option>Solteiro</option>
+                <option>Casado</option>
+                <option>Divorciado</option>
+                <option>Viúvo</option>
+            </select><br><br>
 
-        <hr />
+            <hr />
 
-        <h3>Tipo de Aposentadoria</h3>
-        <select>
-            <option>Aposentadoria por Tempo</option>
-            <option>Aposentadoria por Idade</option>
-            <option>Aposentadoria Especial</option>
-            <option>Aposentadoria por Invalidez</option>
-            <option>Aposentadoria Compulsória</option>
-        </select><br><br>
+            <h3>Endereço</h3>
 
-        <hr />
+            CEP:<br><input type="text" name="CEP"><br><br>
+            Rua:<br><input type="text" name="Rua"><br><br>
+            Número:<br><input type="text" name="Numero"><br><br>
+            Complemento:<br><input type="text" name="Complemento"><br><br>
+            Bairro:<br><input type="text" name="Bairro"><br><br>
+            Cidade:<br><input type="text" name="Cidade"><br><br>
 
-        <h3>Vínculos Empregatícios</h3>
+            Estado:<br>
+            <select name="Estado">
+                <option>SP</option>
+                <option>RJ</option>
+                <option>MG</option>
+                <option>RS</option>
+                <option>SC</option>
+                <option>PR</option>
+                <option>BA</option>
+            </select><br><br>
 
-        Último Cargo:<br><input><br><br>
-        Data de Ingresso:<br><input type="date"><br><br>
-        Data de Saída:<br><input type="date"><br><br>
-        Tempo de Serviço (anos):<br><input type="number"><br><br>
+            <hr />
 
-        <button class="btn-mini" data-add="vinculo">Adicionar Outro Vínculo</button>
-        <div class="lista-vinculos"></div>
+            <h3>Contato</h3>
 
+            Telefone:<br>
+            <input type="text" name="Telefone"><br><br>
 
-        <hr />
+            Celular:<br>
+            <input type="text" name="Celular"><br><br>
 
-        <h3>Tempo Especial</h3>
-        Exposição a agentes nocivos?<br>
-        <select><option>Não</option><option>Sim</option></select><br><br>
-        Descrição:<br><input><br><br>
-        Anos de Exposição:<br><input type="number"><br><br>
+            Email:<br>
+            <input type="text" name="Email"><br><br>
 
-        <hr />
+            <hr />
 
-        <h3>Dependentes</h3>
-        Nome:<br><input><br><br>
-        Parentesco:<br>
-        <select>
-            <option>Filho(a)</option>
-            <option>Cônjuge</option>
-            <option>Pai</option>
-            <option>Mãe</option>
-        </select>
-        <br><br>
-        Data de Nascimento:<br><input type="date"><br><br>
+            <h3>Tipo de Aposentadoria</h3>
+            <select name="TipoAposentadoria">
+                <option>Aposentadoria por Tempo</option>
+                <option>Aposentadoria por Idade</option>
+                <option>Aposentadoria Especial</option>
+                <option>Aposentadoria por Invalidez</option>
+                <option>Aposentadoria Compulsória</option>
+            </select><br><br>
 
-        <button class="btn-add" data-add="dependente">Adicionar Dependente</button>
-        <div class="lista-dependentes"></div>
+            <hr />
 
+            <h3>Vínculo Empregatício</h3>
 
-        <hr />
+            Último Cargo:<br><input type="text" name="UltimoCargo"><br><br>
+            Data de Ingresso:<br><input type="date" name="DataIngresso"><br><br>
+            Data de Saída:<br><input type="date" name="DataSaida"><br><br>
+            Tempo de Serviço (anos):<br><input type="number" name="TempoServico"><br><br>
 
-        <h3>Informações Bancárias</h3>
-        Banco:<br>
-        <select>
-            <option>Banco do Brasil</option>
-            <option>Itaú</option>
-            <option>Caixa</option>
-            <option>Bradesco</option>
-            <option>Santander</option>
-        </select><br><br>
-        Agência:<br><input><br><br>
-        Conta:<br><input><br><br>
+            <!-- REMOVIDOS os botões de adicionar vínculo -->
 
-        <hr />
+            <hr />
 
-        <h3>Documentos</h3>
-        Anexos:<br>
-        <input type="file" multiple><br><br>
+            <h3>Tempo Especial</h3>
 
-        <hr />
+            Exposição a agentes nocivos?<br>
+            <select name="ExposicaoNocivos">
+                <option>Não</option>
+                <option>Sim</option>
+            </select><br><br>
 
-        <h3>Declaração</h3>
-        <input type="checkbox"> Confirmo que as informações são verdadeiras.<br>
-        <input type="checkbox"> Autorizo o uso dos meus dados.<br><br>
+            Descrição:<br><input type="text" name="DescricaoNocivos"><br><br>
 
-        <button>Enviar</button>
-    </div>
+            Anos de Exposição:<br><input type="number" name="AnosExposicao"><br><br>
+
+            <hr />
+
+            <h3>Dependente</h3>
+
+            Nome:<br><input type="text" name="DependenteNome"><br><br>
+
+            Parentesco:<br>
+            <select name="DependenteParentesco">
+                <option>Filho(a)</option>
+                <option>Cônjuge</option>
+                <option>Pai</option>
+                <option>Mãe</option>
+            </select><br><br>
+
+            Data de Nascimento:<br>
+            <input type="date" name="DependenteDataNascimento"><br><br>
+
+            <!-- REMOVIDOS os botões de adicionar dependente -->
+
+            <hr />
+
+            <h3>Informações Bancárias</h3>
+
+            Banco:<br>
+            <select name="Banco">
+                <option>Banco do Brasil</option>
+                <option>Itaú</option>
+                <option>Caixa</option>
+                <option>Bradesco</option>
+                <option>Santander</option>
+            </select><br><br>
+
+            Agência:<br><input type="text" name="Agencia"><br><br>
+
+            Conta:<br><input type="text" name="Conta"><br><br>
+
+            <hr />
+
+            <h3>Documentos</h3>
+
+            Anexos:<br>
+            <input type="file" name="Arquivos" multiple><br><br>
+
+            <hr />
+
+            <h3>Declaração</h3>
+
+            <input type="checkbox" name="ConfirmoVerdade"> Confirmo que as informações são verdadeiras.<br>
+            <input type="checkbox" name="AutorizoUsoDados"> Autorizo o uso dos meus dados.<br><br>
+
+            <button>Enviar</button>
+        </form>
+
 
 </div>
 
